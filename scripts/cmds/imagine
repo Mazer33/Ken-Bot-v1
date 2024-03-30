@@ -1,0 +1,20 @@
+imagine {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+imagine h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+imagine p {
+  color: #666;
+  font-size: 16px;
+}
+
+imagine img {
+  max-width: 100%;
+}
