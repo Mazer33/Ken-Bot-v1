@@ -1,7 +1,7 @@
-/**
- * @author NTKhang
- * ! The source code is written by NTKhang, please don't change the author's name everywhere. Thank you for using
- * ! Official source code: https://github.com/ntkhang03/Goat-Bot-V2
+
+ * @mazer33
+ * ! The source code is written by mazer, please don't change the author's name everywhere. Thank you for using
+ * ! Official source code: https://github.com/mazer33/Ken-Bot-V2
  * ! If you do not download the source code from the above address, you are using an unknown version and at risk of having your account hacked
  *
  * English:
@@ -171,12 +171,12 @@ const watchAndReloadConfig = (dir, type, prop, logName) => {
 					if (lastModified === fs.statSync(dir).mtimeMs) {
 						return;
 					}
-					global.GoatBot[prop] = JSON.parse(fs.readFileSync(dir, 'utf-8'));
+					global.KenBot[prop] = JSON.parse(fs.readFileSync(dir, 'utf-8'));
 					log.success(logName, `Reloaded ${dir.replace(process.cwd(), "")}`);
 				}
 				catch (err) {
 					log.warn(logName, `Can't reload ${dir.replace(process.cwd(), "")}`);
-					global.GoatBot[prop] = oldConfig;
+					global.KenBot[prop] = oldConfig;
 				}
 				finally {
 					lastModified = fs.statSync(dir).mtimeMs;
@@ -189,9 +189,9 @@ const watchAndReloadConfig = (dir, type, prop, logName) => {
 watchAndReloadConfig(dirConfigCommands, 'change', 'configCommands', 'CONFIG COMMANDS');
 watchAndReloadConfig(dirConfig, 'change', 'config', 'CONFIG');
 
-global.GoatBot.envGlobal = global.GoatBot.configCommands.envGlobal;
-global.GoatBot.envCommands = global.GoatBot.configCommands.envCommands;
-global.GoatBot.envEvents = global.GoatBot.configCommands.envEvents;
+global.KenBot.envGlobal = global.KenBot.configCommands.envGlobal;
+global.KenBot.envCommands = global.KenBot.configCommands.envCommands;
+global.KenBot.envEvents = global.KenBot.configCommands.envEvents;
 
 // ———————————————— LOAD LANGUAGE ———————————————— //
 const getText = global.utils.getText;
@@ -200,14 +200,14 @@ const getText = global.utils.getText;
 if (config.autoRestart) {
 	const time = config.autoRestart.time;
 	if (!isNaN(time) && time > 0) {
-		utils.log.info("AUTO RESTART", getText("Goat", "autoRestart1", utils.convertTime(time, true)));
+		utils.log.info("AUTO RESTART", getText("Ken", "autoRestart1", utils.convertTime(time, true)));
 		setTimeout(() => {
 			utils.log.info("AUTO RESTART", "Restarting...");
 			process.exit(2);
 		}, time);
 	}
 	else if (typeof time == "string" && time.match(/^((((\d+,)+\d+|(\d+(\/|-|#)\d+)|\d+L?|\*(\/\d+)?|L(-\d+)?|\?|[A-Z]{3}(-[A-Z]{3})?) ?){5,7})$/gmi)) {
-		utils.log.info("AUTO RESTART", getText("Goat", "autoRestart2", time));
+		utils.log.info("AUTO RESTART", getText("", "autoRestart2", time));
 		const cron = require("node-cron");
 		cron.schedule(time, () => {
 			utils.log.info("AUTO RESTART", "Restarting...");
@@ -272,12 +272,12 @@ if (config.autoRestart) {
 	global.utils.transporter = transporter;
 
 	// ———————————————— CHECK VERSION ———————————————— //
-	const { data: { version } } = await axios.get("https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2/main/package.json");
+	const { data: { version } } = await axios.get("https://raw.githubusercontent.com/mazer33/Ken-Bot-V2/main/package.json");
 	const currentVersion = require("./package.json").version;
 	if (compareVersion(version, currentVersion) === 1)
-		utils.log.master("NEW VERSION", getText("Goat", "newVersionDetected", colors.gray(currentVersion), colors.hex("#eb6a07", version)));
+		utils.log.master("NEW VERSION", getText("Ken", "newVersionDetected", colors.gray(currentVersion), colors.hex("#eb6a07", version)));
 	// —————————— CHECK FOLDER GOOGLE DRIVE —————————— //
-	const parentIdGoogleDrive = await utils.drive.checkAndCreateParentFolder("GoatBot");
+	const parentIdGoogleDrive = await utils.drive.checkAndCreateParentFolder("KenBot");
 	utils.drive.parentID = parentIdGoogleDrive;
 	// ———————————————————— LOGIN ———————————————————— //
 	require(`./bot/login/login${NODE_ENV === 'development' ? '.dev.js' : '.js'}`);
